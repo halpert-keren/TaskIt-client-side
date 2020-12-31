@@ -169,14 +169,6 @@ button.delete {
 	align-items: center;
 	text-align: center;
 }
-/* .select-disabled p {
-	color: red;
-}
-
-select option {
-	color: green;
-} */
-
 .form-select {
 	color: #6C757D;
 }
@@ -190,31 +182,16 @@ select option {
 .ui-autocomplete {
      z-index: 9999 !important;
 }
-
-
-/* 
-
-.srch_bar {
-  display: inline-block;
-  text-align: right;
-  width: 60%; padding:
-}
-.headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #c4c4c4;}
-
-.srch_bar input{ border:1px solid #cdcdcd; border-width:0 0 1px 0; width:80%; padding:2px 0 4px 6px; background:none;}
-.srch_bar .input-group-addon button {
-  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
-  border: medium none;
-  padding: 0;
-  color: #707070;
-  font-size: 18px;
-}
-.srch_bar .input-group-addon { margin: 0 0 0 -27px;} */
-
-
-
 .chat-body{ 
-	overflow: hidden; 
+	overflow-y: scroll;
+	height: 250px; 
+	-ms-overflow-style: none;  
+	scrollbar-width: none;
+	display: flex;
+	flex-flow: column nowrap;
+}
+.chat-body::-webkit-scrollbar {
+	display: none;
 }
 .chat-btn {
 	background-color:  #4b5366;
@@ -225,7 +202,13 @@ select option {
   	display: inline-block;
   	padding: 0 0 0 10px;
   	vertical-align: top;
-  	width: 57%;
+}
+.incoming {
+	display: inline-block;
+	padding: 0 0 0 10px;
+	vertical-align: top;
+	width: 57%;
+	float: left;
 }
 .incoming_msg p {
   	background-color: #ebebeb ;
@@ -236,7 +219,7 @@ select option {
   	padding: 5px 10px 5px 12px;
   	width: 100%;
 }
-.outgoing_msg {
+.outgoing {
 	float: right;
 	width: 50%;
 }

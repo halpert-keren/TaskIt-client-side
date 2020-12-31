@@ -21,6 +21,9 @@ function getUserName() {
         success: function (user) {
             $("#user-name").empty();
             $("#user-name").append('<h2>' + user['firstName'] + '\'s <b>Tasks</b></h2>');  
+            localStorage.setItem('user_name', user['firstName'] +' '+ user['lastName']);
+            localStorage.setItem('user_id', user['_id']);
+
         }
     });
 }
@@ -54,7 +57,6 @@ function displayTasks(tasks) {
 }
 
 function goToTaskId(task_id) {
-    localStorage.clear();
     localStorage.setItem('task_id', task_id);
     location.replace("task.html");
 }

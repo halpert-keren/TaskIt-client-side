@@ -87,25 +87,20 @@ function displaySingleTasks(task, shareList) {
 
 function userAutocomplete() {
     const emailArray = []
-    const bar = new Promise((resolve) => {
-        $.ajax({
-            type: "GET",
-            url: "http://127.0.0.1:3000/api/users",
-            success: function (users) {
-                users.forEach(user => {
-                    emailArray.push(user['email'])
-                })
-                resolve()
-            }
-        });
-    });
-    bar.then(() => {
+    $.ajax({
+        type: "GET",
+        url: "http://127.0.0.1:3000/api/users",
+        success: function (users) {
+            users.forEach(user => {
+                emailArray.push(user['email'])
+            })
+        }
+    }).then(() => {
         $("#task_share").autocomplete({
             source: emailArray
         });
     });
 }
-
 
 function updateSubaskStatus(subtask_id, checked) {
     task_id = localStorage.getItem('task_id')
@@ -160,7 +155,7 @@ function listeners() {
                 }
             });
         }
-       
+
 
     });
 
