@@ -28,6 +28,9 @@ body {
 	margin: -20px -25px 10px;
 	border-radius: 3px 3px 0 0;
 }
+.table-title button {
+	margin-left: 20px;
+}
 .item-title {
 	display: flex;
   justify-content: center;
@@ -130,7 +133,7 @@ table.table td a {
     margin: 0 5px;
     min-width: 24px;
 }    
-.card-body button {
+.card-body.task-body button {
 	border: none;
 	background: none;
 	padding-left: 20px;
@@ -177,7 +180,7 @@ select option {
 .form-select {
 	color: #6C757D;
 }
-.form-select   option {
+.form-select option {
 	color: black;
 }
 #task_share  {
@@ -186,4 +189,72 @@ select option {
 }
 .ui-autocomplete {
      z-index: 9999 !important;
+}
+
+
+/* 
+
+.srch_bar {
+  display: inline-block;
+  text-align: right;
+  width: 60%; padding:
+}
+.headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #c4c4c4;}
+
+.srch_bar input{ border:1px solid #cdcdcd; border-width:0 0 1px 0; width:80%; padding:2px 0 4px 6px; background:none;}
+.srch_bar .input-group-addon button {
+  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+  border: medium none;
+  padding: 0;
+  color: #707070;
+  font-size: 18px;
+}
+.srch_bar .input-group-addon { margin: 0 0 0 -27px;} */
+
+
+
+.chat-body{ 
+	overflow: hidden; 
+}
+.chat-btn {
+	background-color:  #4b5366;
+	padding: 0;
+	width: 60px;
+}
+.incoming_msg {
+  	display: inline-block;
+  	padding: 0 0 0 10px;
+  	vertical-align: top;
+  	width: 57%;
+}
+.incoming_msg p {
+  	background-color: #ebebeb ;
+  	border-radius: 3px;
+  	color: #4b5366;
+  	font-size: 14px;
+  	margin: 0;
+  	padding: 5px 10px 5px 12px;
+  	width: 100%;
+}
+.outgoing_msg {
+	float: right;
+	width: 50%;
+}
+.outgoing_msg p {
+  	background-color:  #4b5366;
+  	border-radius: 3px;
+  	font-size: 14px;
+	margin: 0;
+	color:#ebebeb;
+  	padding: 5px 10px 5px 12px;
+  	width:100%;
+}
+.time_date {
+	color: #8c8f96;
+	display: block;
+	font-size: 12px;
+	margin: 8px 0 0;
+}
+#message-send-button i.material-icons {
+	margin-top: 5px;
 }

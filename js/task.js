@@ -11,7 +11,6 @@ function getSingleTask() {
         type: 'GET',
         success: function (task) {
             getShareList(task)
-            // displaySingleTasks(task);
         }
     });
 }
