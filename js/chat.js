@@ -1,5 +1,3 @@
-var marge_user_id = '5fecb592690ca7935ccfd762'
-
 $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
     getAllMessages()
@@ -8,10 +6,9 @@ $(document).ready(function () {
 function getAllMessages() {
     id = localStorage.getItem('chat_id')
     $.ajax({
-        url: `http://127.0.0.1:3000/api/chats/${id}`,
+        url: `https://task--it.herokuapp.com/api/chats/${id}`,
         type: 'GET',
         success: function (chat) {
-            console.log(chat);
             displayMessagess(chat);
         }
     });
@@ -19,6 +16,7 @@ function getAllMessages() {
 
 function displayMessagess(chat) {
     other_user_name = localStorage.getItem('other_user_name')
+    user_id = localStorage.getItem('user_id')
     messageArray = chat['messages']
     $("#dynamic-chat-list").empty();
     $("#dynamic-chat-name-header").empty();
@@ -28,9 +26,8 @@ function displayMessagess(chat) {
         end = ''
         if (messageArray[messageArray.length - 1] == message) {
             end = '<div id="end-of-messages"></div>'
-
         }
-        if (message['senderID'] == marge_user_id) {
+        if (message['senderID'] == user_id) {
             message_type1 = 'outgoing_msg'
             message_type2 = 'outgoing'
         }
@@ -56,7 +53,7 @@ function sendMessage() {
         "message": $("#message-to-send").val()
     }
     $.ajax({
-        url: `http://127.0.0.1:3000/api/chats/messages/${chat_id}`,
+        url: `https://task--it.herokuapp.com/api/chats/messages/${chat_id}`,
         type: 'POST',
         data: new_message,
         success: function() {

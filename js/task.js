@@ -7,7 +7,7 @@ $(document).ready(function () {
 function getSingleTask() {
     id = localStorage.getItem('task_id')
     $.ajax({
-        url: `http://127.0.0.1:3000/api/tasks/${id}`,
+        url: `https://task--it.herokuapp.com/api/tasks/${id}`,
         type: 'GET',
         success: function (task) {
             getShareList(task)
@@ -18,12 +18,11 @@ function getSingleTask() {
 function getShareList(task) {
     shareList = []
     shareArray = task['share']
-    console.log("shareArray: ", shareArray)
     if (shareArray.length != 0) {
-        const bar = new Promise((resolve) => {
+        const promise = new Promise((resolve) => {
             shareArray.forEach(share => {
                 $.ajax({
-                    url: `http://127.0.0.1:3000/api/users/${share}`,
+                    url: `https://task--it.herokuapp.com/api/users/${share}`,
                     type: 'GET',
                     success: function (user) {
                         shareList.push(user['firstName'] + ' ' + user['lastName'])
@@ -32,7 +31,7 @@ function getShareList(task) {
                 });
             });
         });
-        bar.then(() => {
+        promise.then(() => {
             displaySingleTasks(task, shareList)
         });
     }
@@ -89,7 +88,7 @@ function userAutocomplete() {
     const emailArray = []
     $.ajax({
         type: "GET",
-        url: "http://127.0.0.1:3000/api/users",
+        url: "https://task--it.herokuapp.com/api/users",
         success: function (users) {
             users.forEach(user => {
                 emailArray.push(user['email'])
@@ -109,7 +108,7 @@ function updateSubaskStatus(subtask_id, checked) {
         status = false
     updated_task = { "status": status }
     $.ajax({
-        url: `http://127.0.0.1:3000/api/subtasks/${task_id}/${subtask_id}`,
+        url: `https://task--it.herokuapp.com/api/subtasks/${task_id}/${subtask_id}`,
         type: 'PUT',
         data: updated_task,
         success: function () {
@@ -135,7 +134,7 @@ function listeners() {
 
         if (new_share != '') {
             $.ajax({
-                url: `http://127.0.0.1:3000/api/users/?email=${new_share}`,
+                url: `https://task--it.herokuapp.com/api/users/?email=${new_share}`,
                 type: 'GET',
                 success: function (user) {
                     share_list.push(user._id)
@@ -145,7 +144,7 @@ function listeners() {
                         "share": share_list
                     }
                     $.ajax({
-                        url: `http://127.0.0.1:3000/api/tasks/${task_id}`,
+                        url: `https://task--it.herokuapp.com/api/tasks/${task_id}`,
                         type: 'PUT',
                         data: updated_task,
                         success: function () {
@@ -161,7 +160,7 @@ function listeners() {
                 "category": new_category
             }
             $.ajax({
-                url: `http://127.0.0.1:3000/api/tasks/${task_id}`,
+                url: `https://task--it.herokuapp.com/api/tasks/${task_id}`,
                 type: 'PUT',
                 data: updated_task,
                 success: function () {
@@ -174,13 +173,12 @@ function listeners() {
     $("#submit_delete_task").click(() => {
         task_id = localStorage.getItem('task_id')
         $.ajax({
-            url: `http://127.0.0.1:3000/api/tasks/${task_id}`,
+            url: `https://task--it.herokuapp.com/api/tasks/${task_id}`,
             type: 'DELETE',
             success: function () {
                 location.replace('dashboard.html');
             }
         });
-
     });
 
     $("#submit_create_subtask").click(() => {
@@ -188,9 +186,8 @@ function listeners() {
         new_subtask = {
             "name": $("#task_name_create").val()
         }
-        console.log(task_id, " ", new_subtask)
         $.ajax({
-            url: `http://127.0.0.1:3000/api/subtasks/${task_id}`,
+            url: `https://task--it.herokuapp.com/api/subtasks/${task_id}`,
             type: 'POST',
             data: new_subtask,
             success: function () {
@@ -209,26 +206,24 @@ function listeners() {
             "name": new_name,
         }
         $.ajax({
-            url: `http://127.0.0.1:3000/api/subtasks/${task_id}/${subtask_id}`,
+            url: `https://task--it.herokuapp.com/api/subtasks/${task_id}/${subtask_id}`,
             type: 'PUT',
             data: new_subtask,
-            success: function (data) {
+            success: function () {
                 getSingleTask()
             }
         });
-
     });
 
     $("#submit_delete_subtask").click(() => {
         task_id = localStorage.getItem('task_id')
         subtask_id = 0
         $.ajax({
-            url: `http://127.0.0.1:3000/api/subtasks/${task_id}/${subtask_id}`,
+            url: `https://task--it.herokuapp.com/api/subtasks/${task_id}/${subtask_id}`,
             type: 'DELETE',
-            success: function (data) {
+            success: function () {
                 getSingleTask()
             }
         });
-
     });
 }

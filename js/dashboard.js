@@ -1,4 +1,3 @@
-
 var marge_user_id = '5fecb592690ca7935ccfd762'
 
 $(document).ready(function () {
@@ -18,7 +17,7 @@ function signOut() {
 function getUserName() {
     user_id = localStorage.getItem('user_id')
     $.ajax({
-        url: `http://127.0.0.1:3000/api/users/${user_id}`,
+        url: `https://task--it.herokuapp.com/api/users/${user_id}`,
         type: 'GET',
         success: function (user) {
             $("#user-name").empty();
@@ -31,10 +30,9 @@ function getUserName() {
 function getAllUserTasks() {
     user_id = localStorage.getItem('user_id')
     $.ajax({
-        url: `http://127.0.0.1:3000/api/tasks/?userID=${user_id}`,
+        url: `https://task--it.herokuapp.com/api/tasks/?userID=${user_id}`,
         type: 'GET',
         success: function (tasks) {
-            console.log(tasks);
             displayTasks(tasks);
         }
     });
@@ -68,7 +66,7 @@ function updateTaskStatus(task_id, checked) {
         status = false
     updated_task = { "status": status }
     $.ajax({
-        url: `http://127.0.0.1:3000/api/tasks/${task_id}`,
+        url: `https://task--it.herokuapp.com/api/tasks/${task_id}`,
         type: 'PUT',
         data: updated_task,
         success: function () {

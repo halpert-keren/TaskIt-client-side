@@ -1,5 +1,3 @@
-var marge_user_id = '5fecb592690ca7935ccfd762'
-
 $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
     getAllUserChats()
@@ -7,11 +5,11 @@ $(document).ready(function () {
 });
 
 function getAllUserChats() {
+    user_id = localStorage.getItem('user_id')
     $.ajax({
-        url: `http://127.0.0.1:3000/api/chats/?userID=${marge_user_id}`,
+        url: `https://task--it.herokuapp.com/api/chats/?userID=${user_id}`,
         type: 'GET',
         success: function (chats) {
-            console.log("chats: ", chats);
             displayChats(chats);
         }
     });
@@ -20,24 +18,21 @@ function getAllUserChats() {
 function displayChats(chats) {
     user_name = localStorage.getItem('user_name')
     user_id = localStorage.getItem('user_id')
-    let other_user_names = ''
+    other_user_names = ''
     userID = ''
     $("#dynamic-message-list").empty();
     chats.forEach(chat => {
-        console.log("chat: ", chat)
         if (chat['userID1'] == user_id)
             userID = 'userID2'
         else
             userID = 'userID2'
-        console.log("user place: ", userID)
         $.ajax({
-            url: `http://127.0.0.1:3000/api/users/${chat[userID]}`,
+            url: `https://task--it.herokuapp.com/api/users/${chat[userID]}`,
             type: 'GET',
             success: function (user) {
                 other_user_names = (user['firstName'] + ' ' + user['lastName'])
             }
         }).then(() => {
-            console.log("other_user_names: ", other_user_names)
             $('#dynamic-message-list').append(
                 '<tr>' +
                 '<th><h5>' + other_user_names + '</h5></th>' +
@@ -59,7 +54,7 @@ function userAutocomplete() {
     const emailArray = []
     $.ajax({
         type: "GET",
-        url: "http://127.0.0.1:3000/api/users",
+        url: "https://task--it.herokuapp.com/api/users",
         success: function (users) {
             users.forEach(user => {
                 emailArray.push(user['email'])
@@ -80,7 +75,7 @@ function listeners() {
             new_user = ($("#create-chat-user").val())
         if (new_user != '') {
             $.ajax({
-                url: `http://127.0.0.1:3000/api/users/?email=${new_user}`,
+                url: `https://task--it.herokuapp.com/api/users/?email=${new_user}`,
                 type: 'GET',
                 success: function (user) {
                     new_chat = {
@@ -88,7 +83,7 @@ function listeners() {
                         userID2: user._id
                     }
                     $.ajax({
-                        url: `http://127.0.0.1:3000/api/chats`,
+                        url: `https://task--it.herokuapp.com/api/chats`,
                         type: 'POST',
                         data: new_chat,
                         success: function () {
@@ -98,8 +93,5 @@ function listeners() {
                 }
             });
         }
-
-
     });
-
 }
