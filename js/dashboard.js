@@ -2,6 +2,7 @@
 var marge_user_id = '5fecb592690ca7935ccfd762'
 
 $(document).ready(function () {
+    localStorage.setItem('user_id', marge_user_id);
     $('[data-toggle="tooltip"]').tooltip();
     getUserName()
     getAllUserTasks()
@@ -15,22 +16,22 @@ function signOut() {
 }
 
 function getUserName() {
+    user_id = localStorage.getItem('user_id')
     $.ajax({
-        url: `http://127.0.0.1:3000/api/users/${marge_user_id}`,
+        url: `http://127.0.0.1:3000/api/users/${user_id}`,
         type: 'GET',
         success: function (user) {
             $("#user-name").empty();
             $("#user-name").append('<h2>' + user['firstName'] + '\'s <b>Tasks</b></h2>');  
             localStorage.setItem('user_name', user['firstName'] +' '+ user['lastName']);
-            localStorage.setItem('user_id', user['_id']);
-
         }
     });
 }
 
 function getAllUserTasks() {
+    user_id = localStorage.getItem('user_id')
     $.ajax({
-        url: `http://127.0.0.1:3000/api/tasks`,
+        url: `http://127.0.0.1:3000/api/tasks/?userID=${user_id}`,
         type: 'GET',
         success: function (tasks) {
             console.log(tasks);

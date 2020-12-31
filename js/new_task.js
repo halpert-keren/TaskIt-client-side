@@ -7,7 +7,7 @@ $(function () {
 
 function getTemplates() {
     $.ajax({
-        url: `http://127.0.0.1:3000/api/tasks/task/templates`,
+        url: `http://127.0.0.1:3000/api/tasks/?templates=1`,
         type: 'GET',
         success: function (templates) {
             displayTemplates(templates);

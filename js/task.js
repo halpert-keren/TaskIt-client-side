@@ -109,7 +109,7 @@ function updateSubaskStatus(subtask_id, checked) {
         status = false
     updated_task = { "status": status }
     $.ajax({
-        url: `http://127.0.0.1:3000/api/tasks/subtasks/${task_id}/${subtask_id}`,
+        url: `http://127.0.0.1:3000/api/subtasks/${task_id}/${subtask_id}`,
         type: 'PUT',
         data: updated_task,
         success: function () {
@@ -155,8 +155,20 @@ function listeners() {
                 }
             });
         }
-
-
+        else {
+            updated_task = {
+                "name": new_name,
+                "category": new_category
+            }
+            $.ajax({
+                url: `http://127.0.0.1:3000/api/tasks/${task_id}`,
+                type: 'PUT',
+                data: updated_task,
+                success: function () {
+                    location.replace('task.html');
+                }
+            });
+        }
     });
 
     $("#submit_delete_task").click(() => {
@@ -178,10 +190,10 @@ function listeners() {
         }
         console.log(task_id, " ", new_subtask)
         $.ajax({
-            url: `http://127.0.0.1:3000/api/tasks/subtasks/${task_id}`,
+            url: `http://127.0.0.1:3000/api/subtasks/${task_id}`,
             type: 'POST',
             data: new_subtask,
-            success: function (data) {
+            success: function () {
                 location.replace("task.html");
             }
         });
@@ -197,7 +209,7 @@ function listeners() {
             "name": new_name,
         }
         $.ajax({
-            url: `http://127.0.0.1:3000/api/tasks/subtasks/${task_id}/${subtask_id}`,
+            url: `http://127.0.0.1:3000/api/subtasks/${task_id}/${subtask_id}`,
             type: 'PUT',
             data: new_subtask,
             success: function (data) {
@@ -211,7 +223,7 @@ function listeners() {
         task_id = localStorage.getItem('task_id')
         subtask_id = 0
         $.ajax({
-            url: `http://127.0.0.1:3000/api/tasks/subtasks/${task_id}/${subtask_id}`,
+            url: `http://127.0.0.1:3000/api/subtasks/${task_id}/${subtask_id}`,
             type: 'DELETE',
             success: function (data) {
                 getSingleTask()
