@@ -5,7 +5,7 @@ $(function () {
 
 function getTemplates() {
     $.ajax({
-        url: `https://task--it.herokuapp.com/tasks/?templates=1`,
+        url: `https://task--it.herokuapp.com/api/tasks/?templates=1`,
         type: 'GET',
         success: function (templates) {
             displayTemplates(templates);
